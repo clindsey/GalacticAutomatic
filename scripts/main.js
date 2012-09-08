@@ -1,7 +1,7 @@
 var on_load;
 (function(window, undefined) {
   on_load = function() {
-    // no err handling currently, sorry
+    // no err handling currently, sorry. need to add messages for missing/inappropriate variables
     var galactic_automatic = new GalacticAutomatic({
         'world_chunk_size': 10,
         'chunk_size': 9,

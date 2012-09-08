@@ -2,7 +2,7 @@
   window.Viewport = function(viewport_drawing_context, heightmap, viewport_width, viewport_height, x, y, tile_width, tile_height, world_chunk_width, world_chunk_height, chunk_width, chunk_height, max_elevation) { // refactor, huge signature
     var self = this;
 
-    this.data = [];
+    this.data = []; // refactor?
     this.heightmap = heightmap;
     this.viewport_width = viewport_width;
     this.viewport_height = viewport_height;
@@ -17,7 +17,7 @@
 
     self.render_tiles(viewport_drawing_context, max_elevation, tile_width, tile_height);
 
-    viewport_drawing_context.canvas.onmousedown = function(mouse_event) { // refactor
+    viewport_drawing_context.canvas.onmousedown = function(mouse_event) {
       var mouse_x = mouse_event.offsetX,
           mouse_y = mouse_event.offsetY,
           tile_x = Math.floor(mouse_x / tile_width),

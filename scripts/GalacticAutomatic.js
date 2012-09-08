@@ -41,10 +41,6 @@
   GalacticAutomatic.clamp = function(index, size) {
     return (index + size) % size;
   };
-  
-  GalacticAutomatic.tween = function(a, b, f){
-    return a + f * (b - a);
-  };
 
   GalacticAutomatic.get_height_color = function(height, max_elevation) {
     var elev_factor = (height / max_elevation),

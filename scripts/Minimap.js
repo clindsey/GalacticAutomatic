@@ -16,7 +16,7 @@
       self.render_tiles(heightmap.data, minimap_drawing_context, max_elevation, minimap_tile_width, minimap_tile_height, viewport);
     };
 
-    viewport.move_to_callback = function(){
+    viewport.move_to_callback = function(){ // not happy with this pattern, refactor?
       self.render_tiles(heightmap.data, minimap_drawing_context, max_elevation, minimap_tile_width, minimap_tile_height, viewport);
     };
   };

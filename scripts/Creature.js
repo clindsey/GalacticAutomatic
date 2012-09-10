@@ -19,13 +19,13 @@
             scrubbed_data = GalacticAutomatic.scrub_for_pathfinding(heightmap_data, max_elevation),
             dest_x,
             dest_y;
-        start_x = scrubbed_data[0].length / 2;
-        start_y = scrubbed_data.length / 2;
-        give_up_counter = 20;
-        while(give_up_counter -= 1){
-          dest_y = ~~(Math.random() * scrubbed_data.length);
-          dest_x = ~~(Math.random() * scrubbed_data[0].length);
-          if(scrubbed_data[dest_y][dest_x] === 1){
+        start_x = scrubbed_data.length / 2;
+        start_y = scrubbed_data[0].length / 2;
+        var give_up_counter = 100;
+        while(true){
+          dest_y = ~~(Math.random() * scrubbed_data[0].length);
+          dest_x = ~~(Math.random() * scrubbed_data.length);
+          if(scrubbed_data[dest_x][dest_y] === 1){
             var graph = new Graph(scrubbed_data),
                 start = graph.nodes[start_x][start_y],
                 end = graph.nodes[dest_x][dest_y];
@@ -35,8 +35,10 @@
               break;
             }
           }
+          give_up_counter -= 1;
           if(give_up_counter === 0){
             state = 'stopped';
+            break;
           }
         }
       }

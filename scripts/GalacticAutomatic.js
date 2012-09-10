@@ -58,7 +58,7 @@
           hm_x = ~~(Math.random() * hm_width),
           hm_y = ~~(Math.random() * hm_height);
       if(heightmap.data[hm_y][hm_x] / max_elevation >= 0.5){
-        creature = new Creature(heightmap, hm_x, hm_y, hm_width, hm_height, max_elevation);
+        creature = new Creature(heightmap, hm_x, hm_y, hm_width, hm_height, max_elevation, this.SEED);
         entitymap.register_creature(creature);
       }
     }

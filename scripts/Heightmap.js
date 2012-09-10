@@ -92,7 +92,7 @@
           }
         }
 
-        chunks[y][x] = chunk = new Chunk(ne, nw, se, sw, chunk_width, chunk_height);
+        chunks[y][x] = new Chunk(ne, nw, se, sw, chunk_width, chunk_height);
       }
     }
 

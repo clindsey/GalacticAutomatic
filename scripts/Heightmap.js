@@ -36,6 +36,26 @@
     return heightmap;
   };
 
+  Heightmap.prototype.get_area = function(slice_width, slice_height, center_x, center_y) {
+    var data_out = [],
+        heightmap_data = this.data,
+        data_height = heightmap_data.length,
+        data_width,
+        x_offset = slice_width >> 1,
+        y_offset = slice_height >> 1;
+    for(var y = 0, x; y < slice_height; y += 1){
+      data_width = heightmap_data[y].length;
+      data_out[y] = [];
+      for(x = 0; x < slice_width; x += 1){
+        var x_index = GalacticAutomatic.clamp(x - x_offset + center_x, data_width),
+            y_index = GalacticAutomatic.clamp(y - y_offset + center_y, data_height);
+        data_out[y][x] = heightmap_data[y_index][x_index];
+      }
+    }
+
+    return data_out;
+  };
+
   Heightmap.prototype.build_chunks = function(world_chunk_width, world_chunk_height, chunk_width, chunk_height, max_elevation) {
     var chunks = [],
         world_tile_width = world_chunk_width * chunk_width,

@@ -21,7 +21,7 @@
     var heightmap = new Heightmap(this.SEED, world_chunk_width, world_chunk_height, chunk_width, chunk_height, max_elevation);
 
     var entitymap = new Entitymap(world_chunk_width * chunk_width, world_chunk_height * chunk_height);
-    this.add_creatures(entitymap, heightmap, viewport_tile_size);
+    this.add_creatures(entitymap, heightmap, viewport_tile_size, max_elevation);
 
     var viewport_x = ~~((chunk_width * world_chunk_width) / 2),
         viewport_y = ~~((chunk_height * world_chunk_height) / 2),
@@ -51,27 +51,38 @@
     */
   };
 
-  GalacticAutomatic.prototype.add_creatures = function(entitymap, heightmap, viewport_tile_size) {
-    while(entitymap.creatures.length < 10){
+  GalacticAutomatic.prototype.add_creatures = function(entitymap, heightmap, viewport_tile_size, max_elevation) {
+    while(entitymap.creatures.length < 10){ // refactor
       var hm_width = heightmap.data[0].length,
           hm_height = heightmap.data.length,
           hm_x = ~~(Math.random() * hm_width),
           hm_y = ~~(Math.random() * hm_height);
-      creature = new Creature(hm_x, hm_y, hm_width, hm_height);
-      entitymap.register_creature(creature);
+      if(heightmap.data[hm_y][hm_x] / max_elevation >= 0.5){
+        creature = new Creature(heightmap, hm_x, hm_y, hm_width, hm_height, max_elevation);
+        entitymap.register_creature(creature);
+      }
     }
   };
 
   GalacticAutomatic.prototype.generate_seed = function(seed_val) {
     var seed = 0;
-
-    (seed_val + '').split('').map(function(c, i){ seed += c.charCodeAt(0) << i; }); // refactor?
-
+    (seed_val + '').split('').map(function(c, i){ seed += c.charCodeAt(0) << i; });
     return seed;
   };
 
   GalacticAutomatic.clamp = function(index, size) {
     return (index + size) % size;
+  };
+
+  GalacticAutomatic.scrub_for_pathfinding = function(heightmap_data, max_elevation) {
+    var data_out = [];
+    for(var y = 0, yl = heightmap_data.length, x, xl; y < yl; y += 1){
+      data_out[y] = [];
+      for(x = 0, xl = heightmap_data[0].length; x < xl; x += 1){
+        data_out[y][x] = heightmap_data[y][x] / max_elevation >= 0.5 ? 1 : 0; // refactor
+      }
+    }
+    return data_out;
   };
 
   GalacticAutomatic.get_height_color = function(height, max_elevation) {

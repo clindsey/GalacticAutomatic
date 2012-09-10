@@ -1,13 +1,13 @@
 (function(window, undefined) {
   window.Creature = function(heightmap, heightmap_x, heightmap_y, heightmap_width, heightmap_height, max_elevation) {
     var self = this,
-        state = 'finding_path'; // finding_path, following_path, dead
+        state = 'finding_path'; // finding_path, following_path, stopped
 
     this.map_x = heightmap_x;
     this.map_y = heightmap_y;
 
-    var vx = 0, //~~(Math.random() * 2) - 1,
-        vy = 0, //~~(Math.random() * 2) - 1;
+    var vx = 0,
+        vy = 0,
         result,
         start_x,
         start_y;
@@ -36,7 +36,7 @@
             }
           }
           if(give_up_counter === 0){
-            state = 'dead';
+            state = 'stopped';
           }
         }
       }

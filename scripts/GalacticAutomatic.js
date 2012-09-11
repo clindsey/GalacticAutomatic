@@ -51,15 +51,43 @@
     */
   };
 
-  GalacticAutomatic.prototype.add_creatures = function(entitymap, heightmap, viewport_tile_size, max_elevation) {
-    while(entitymap.creatures.length < 10){ // refactor
+  GalacticAutomatic.prototype.add_creatures = function(entitymap, heightmap, viewport_tile_size, max_elevation) { // refactor
+    var carrot_count = 0;
+    while(carrot_count < 10){
       var hm_width = heightmap.data[0].length,
           hm_height = heightmap.data.length,
           hm_x = ~~(Math.random() * hm_width),
           hm_y = ~~(Math.random() * hm_height);
       if(heightmap.data[hm_y][hm_x] / max_elevation >= 0.5){
-        creature = new Creature(heightmap, hm_x, hm_y, hm_width, hm_height, max_elevation, this.SEED);
-        entitymap.register_creature(creature);
+        var carrot = new Carrot(heightmap, hm_x, hm_y, hm_width, hm_height, max_elevation, this.SEED);
+        entitymap.register_creature(carrot);
+        carrot_count += 1;
+      }
+    }
+
+    var rabbit_count = 0;
+    while(rabbit_count < 10){
+      var hm_width = heightmap.data[0].length,
+          hm_height = heightmap.data.length,
+          hm_x = ~~(Math.random() * hm_width),
+          hm_y = ~~(Math.random() * hm_height);
+      if(heightmap.data[hm_y][hm_x] / max_elevation >= 0.5){
+        var rabbit = new Rabbit(heightmap, hm_x, hm_y, hm_width, hm_height, max_elevation, this.SEED);
+        entitymap.register_creature(rabbit);
+        rabbit_count += 1;
+      }
+    }
+
+    var wolf_count = 0;
+    while(wolf_count < 10){
+      var hm_width = heightmap.data[0].length,
+          hm_height = heightmap.data.length,
+          hm_x = ~~(Math.random() * hm_width),
+          hm_y = ~~(Math.random() * hm_height);
+      if(heightmap.data[hm_y][hm_x] / max_elevation >= 0.5){
+        var wolf = new Wolf(heightmap, hm_x, hm_y, hm_width, hm_height, max_elevation, this.SEED);
+        entitymap.register_creature(wolf);
+        wolf_count += 1;
       }
     }
   };
@@ -91,7 +119,7 @@
     if(elev_factor >= 0.6){
       color = '#209E55';
     } else if(elev_factor >= 0.5 && elev_factor < 0.6){
-      color = '#FAE7A5';
+      color = '#E8DCB2';
     } else{
       color = '#0693F0';
     };

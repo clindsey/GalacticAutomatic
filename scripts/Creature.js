@@ -7,6 +7,10 @@
       this.map_y = heightmap_y;
       this.fill_style = '#FF0000';
       this.state = 'finding_path'; // finding_path, following_path, stopped
+      this.dead = false;
+      this.energy = 100;
+      this.energy_value = 10;
+      this.move_energy_cost = 1;
 
       var vx = 0,
           vy = 0,
@@ -53,6 +57,10 @@
           start_y = node.x;
           self.map_x = GalacticAutomatic.clamp(self.map_x + vx, heightmap_width);
           self.map_y = GalacticAutomatic.clamp(self.map_y + vy, heightmap_height);
+          self.energy -= self.move_energy_cost;
+          if(self.energy <= 0){
+            self.kill();
+          }
           if(result.length === 0){
             self.state = 'finding_path';
           }
@@ -63,6 +71,11 @@
         drawing_context.fillStyle = self.fill_style;
         drawing_context.fillRect(0, 0, tile_width, tile_height);
       };
+    },
+
+    kill: function() {
+      this.state = 'stopped';
+      this.dead = true;
     }
   });
 })(window);

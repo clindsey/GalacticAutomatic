@@ -53,12 +53,12 @@
 
   GalacticAutomatic.prototype.add_creatures = function(entitymap, heightmap, viewport_tile_size, max_elevation) { // refactor
     var carrot_count = 0;
-    while(carrot_count < 10){
+    while(carrot_count < 128){
       var hm_width = heightmap.data[0].length,
           hm_height = heightmap.data.length,
           hm_x = ~~(Math.random() * hm_width),
           hm_y = ~~(Math.random() * hm_height);
-      if(heightmap.data[hm_y][hm_x] / max_elevation >= 0.5){
+      if(heightmap.data[hm_y][hm_x] / max_elevation >= 0.25){
         var carrot = new Carrot(heightmap, hm_x, hm_y, hm_width, hm_height, max_elevation, this.SEED);
         entitymap.register_creature(carrot);
         carrot_count += 1;
@@ -66,12 +66,12 @@
     }
 
     var rabbit_count = 0;
-    while(rabbit_count < 10){
+    while(rabbit_count < 32){
       var hm_width = heightmap.data[0].length,
           hm_height = heightmap.data.length,
           hm_x = ~~(Math.random() * hm_width),
           hm_y = ~~(Math.random() * hm_height);
-      if(heightmap.data[hm_y][hm_x] / max_elevation >= 0.5){
+      if(heightmap.data[hm_y][hm_x] / max_elevation >= 0.25){
         var rabbit = new Rabbit(heightmap, hm_x, hm_y, hm_width, hm_height, max_elevation, this.SEED);
         entitymap.register_creature(rabbit);
         rabbit_count += 1;
@@ -79,12 +79,12 @@
     }
 
     var wolf_count = 0;
-    while(wolf_count < 10){
+    while(wolf_count < 8){
       var hm_width = heightmap.data[0].length,
           hm_height = heightmap.data.length,
           hm_x = ~~(Math.random() * hm_width),
           hm_y = ~~(Math.random() * hm_height);
-      if(heightmap.data[hm_y][hm_x] / max_elevation >= 0.5){
+      if(heightmap.data[hm_y][hm_x] / max_elevation >= 0.25){
         var wolf = new Wolf(heightmap, hm_x, hm_y, hm_width, hm_height, max_elevation, this.SEED);
         entitymap.register_creature(wolf);
         wolf_count += 1;
@@ -107,7 +107,7 @@
     for(var y = 0, yl = heightmap_data.length, x, xl; y < yl; y += 1){
       data_out[y] = [];
       for(x = 0, xl = heightmap_data[0].length; x < xl; x += 1){
-        data_out[y][x] = heightmap_data[y][x] / max_elevation >= 0.5 ? 1 : 0; // refactor
+        data_out[y][x] = heightmap_data[y][x] / max_elevation >= 0.25 ? 1 : 0; // refactor
       }
     }
     return data_out;
@@ -116,9 +116,9 @@
   GalacticAutomatic.get_height_color = function(height, max_elevation) {
     var elev_factor = (height / max_elevation),
         color;
-    if(elev_factor >= 0.6){
+    if(elev_factor >= 0.36){
       color = '#209E55';
-    } else if(elev_factor >= 0.5 && elev_factor < 0.6){
+    } else if(elev_factor >= 0.25 && elev_factor < 0.36){
       color = '#E8DCB2';
     } else{
       color = '#0693F0';

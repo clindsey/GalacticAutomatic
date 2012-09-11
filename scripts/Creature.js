@@ -3,6 +3,9 @@
     init: function(heightmap, heightmap_x, heightmap_y, heightmap_width, heightmap_height, max_elevation) {
       var self = this;
 
+      this.__id__ = (Math.round(0xFFFFFFFFFFFF * Math.random()).toString(16) + "0000000000").replace(/([a-f0-9]{12}).+/, "$1").toUpperCase();
+      this.x;
+      this.y;
       this.map_x = heightmap_x;
       this.map_y = heightmap_y;
       this.fill_style = '#FF0000';

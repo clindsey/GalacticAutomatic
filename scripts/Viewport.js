@@ -42,9 +42,6 @@
     };
 
     this.move_to(this.x, this.y);
-
-    self.render_tiles(viewport_static_drawing_context, viewport_dynamic_drawing_context, max_elevation, tile_width, tile_height);
-    entitymap.draw_to_viewport(viewport_dynamic_drawing_context, tile_width, tile_height, x - ~~(viewport_width / 2), y - ~~(viewport_height / 2));
   };
 
   Viewport.prototype.render_tiles = function(drawing_context, dynamic_drawing_context, max_elevation, tile_width, tile_height) {

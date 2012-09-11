@@ -8,9 +8,9 @@
       this.fill_style = '#FF0000';
       this.state = 'finding_path'; // finding_path, following_path, stopped
       this.dead = false;
-      this.energy = 100;
-      this.energy_value = 10;
-      this.move_energy_cost = 1;
+      this.energy = 400;
+      this.energy_value = 100;
+      this.move_energy_cost = 2;
 
       var vx = 0,
           vy = 0,

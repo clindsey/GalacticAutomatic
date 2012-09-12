@@ -1,9 +1,10 @@
 (function(window, undefined) {
-  window.Entitymap = function(world_tile_width, world_tile_height) {
+  window.Entitymap = function(heightmap, world_tile_width, world_tile_height) {
     this.creatures = [];
     this.world_tile_width = world_tile_width;
     this.world_tile_height = world_tile_height;
     this.neighbors = {};
+    this.heightmap = heightmap;
   };
 
   Entitymap.prototype.update = function() {
@@ -35,6 +36,31 @@
         }
       });
     });
+  };
+
+  Entitymap.prototype.get_creatures_in_area = function(slice_width, slice_height, center_x, center_y, creature_type) {
+    var data_out = [],
+        heightmap_data = this.heightmap.data,
+        data_height = heightmap_data.length,
+        data_width,
+        x_offset = slice_width >> 1,
+        y_offset = slice_height >> 1;
+    for(var y = 0, x; y < slice_height; y += 1){
+      data_width = heightmap_data[y].length;
+      for(x = 0; x < slice_width; x += 1){
+        var x_index = GalacticAutomatic.clamp(x - x_offset + center_x, data_width),
+            y_index = GalacticAutomatic.clamp(y - y_offset + center_y, data_height),
+            neighbors = this.neighbors[x_index + '_' + y_index];
+        //data_out[y][x] = heightmap_data[y_index][x_index];
+        if(!!neighbors){
+          for(var i = 0, il = neighbors.length; i < il; i += 1){
+            data_out.push({'creature': neighbors[i], 'x': x, 'y': y});
+          }
+        }
+      }
+    }
+
+    return data_out;
   };
 
   Entitymap.prototype.draw_to_minimap = function(drawing_context, tile_width, tile_height) {

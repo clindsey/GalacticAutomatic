@@ -17,10 +17,11 @@
         minimap_tile_size = options.minimap_tile_size;
 
     this.SEED = this.generate_seed(seed_val);
+    this.carrot_creation_timer;
 
     var heightmap = new Heightmap(this.SEED, world_chunk_width, world_chunk_height, chunk_width, chunk_height, max_elevation);
 
-    var entitymap = new Entitymap(world_chunk_width * chunk_width, world_chunk_height * chunk_height);
+    var entitymap = new Entitymap(heightmap, world_chunk_width * chunk_width, world_chunk_height * chunk_height);
     this.add_creatures(entitymap, heightmap, viewport_tile_size, max_elevation);
 
     var viewport_x = ~~((chunk_width * world_chunk_width) / 2),
@@ -52,16 +53,20 @@
   };
 
   GalacticAutomatic.prototype.add_creatures = function(entitymap, heightmap, viewport_tile_size, max_elevation) { // refactor
+    var self = this;
+
     var carrot_count = 0;
     while(carrot_count < 128){
       var hm_width = heightmap.data[0].length,
           hm_height = heightmap.data.length,
           hm_x = ~~(Math.random() * hm_width),
           hm_y = ~~(Math.random() * hm_height);
-      if(heightmap.data[hm_y][hm_x] / max_elevation >= 0.25){
-        var carrot = new Carrot(heightmap, hm_x, hm_y, hm_width, hm_height, max_elevation, this.SEED);
-        entitymap.register_creature(carrot);
-        carrot_count += 1;
+      if(heightmap.data[hm_y][hm_x] / max_elevation >= 0.36){
+        if(entitymap.neighbors[hm_x + '_' + hm_y] === undefined){
+          var carrot = new Carrot(entitymap, heightmap, hm_x, hm_y, hm_width, hm_height, max_elevation, this.SEED);
+          entitymap.register_creature(carrot);
+          carrot_count += 1;
+        }
       }
     }
 
@@ -72,9 +77,11 @@
           hm_x = ~~(Math.random() * hm_width),
           hm_y = ~~(Math.random() * hm_height);
       if(heightmap.data[hm_y][hm_x] / max_elevation >= 0.25){
-        var rabbit = new Rabbit(heightmap, hm_x, hm_y, hm_width, hm_height, max_elevation, this.SEED);
-        entitymap.register_creature(rabbit);
-        rabbit_count += 1;
+        if(entitymap.neighbors[hm_x + '_' + hm_y] === undefined){
+          var rabbit = new Rabbit(entitymap, heightmap, hm_x, hm_y, hm_width, hm_height, max_elevation, this.SEED);
+          entitymap.register_creature(rabbit);
+          rabbit_count += 1;
+        }
       }
     }
 
@@ -85,11 +92,24 @@
           hm_x = ~~(Math.random() * hm_width),
           hm_y = ~~(Math.random() * hm_height);
       if(heightmap.data[hm_y][hm_x] / max_elevation >= 0.25){
-        var wolf = new Wolf(heightmap, hm_x, hm_y, hm_width, hm_height, max_elevation, this.SEED);
+        var wolf = new Wolf(entitymap, heightmap, hm_x, hm_y, hm_width, hm_height, max_elevation, this.SEED);
         entitymap.register_creature(wolf);
         wolf_count += 1;
       }
     }
+
+    this.carrot_creation_timer = setInterval(function() {
+      var hm_width = heightmap.data[0].length,
+          hm_height = heightmap.data.length,
+          hm_x = ~~(Math.random() * hm_width),
+          hm_y = ~~(Math.random() * hm_height);
+      if(heightmap.data[hm_y][hm_x] / max_elevation >= 0.36){
+        if(entitymap.neighbors[hm_x + '_' + hm_y] === undefined){
+          var carrot = new Carrot(entitymap, heightmap, hm_x, hm_y, hm_width, hm_height, max_elevation, self.SEED);
+          entitymap.register_creature(carrot);
+        }
+      }
+    }, 1000 * 2);
   };
 
   GalacticAutomatic.prototype.generate_seed = function(seed_val) {

@@ -97,7 +97,7 @@
         wolf_count += 1;
       }
     }
-
+/*
     this.carrot_creation_timer = setInterval(function() {
       var hm_width = heightmap.data[0].length,
           hm_height = heightmap.data.length,
@@ -110,6 +110,7 @@
         }
       }
     }, 1000 * 2);
+*/
   };
 
   GalacticAutomatic.prototype.generate_seed = function(seed_val) {

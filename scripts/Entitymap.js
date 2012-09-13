@@ -17,7 +17,7 @@
       if(self.neighbors[index] === undefined) self.neighbors[index] = [];
       self.neighbors[index].push(creature);
     });
-    this.creatures.map(function(creature, index) { // refactor
+    this.creatures.map(function(creature, index) { // refactor, maybe this should be handled by individual creatures
       if(creature.dead) return; // refactor
       var index = creature.map_x + '_' + creature.map_y,
           neighbors = self.neighbors[index];

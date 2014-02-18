@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf8" />
+    <title>Galactic Automatic</title>
+    <script type="text/javascript" src="vendor/Class.js"></script>
+    <script type="text/javascript" src="vendor/prng.js"></script>
+    <script type="text/javascript" src="vendor/graph.js"></script>
+    <script type="text/javascript" src="vendor/astar.js"></script>
+    <script type="text/javascript" src="scripts/Chunk.js"></script>
+    <script type="text/javascript" src="scripts/Entitymap.js"></script>
+    <script type="text/javascript" src="scripts/Creature.js"></script>
+    <script type="text/javascript" src="scripts/Carrot.js"></script>
+    <script type="text/javascript" src="scripts/Rabbit.js"></script>
+    <script type="text/javascript" src="scripts/Wolf.js"></script>
+    <script type="text/javascript" src="scripts/Heightmap.js"></script>
+    <script type="text/javascript" src="scripts/Viewport.js"></script>
+    <script type="text/javascript" src="scripts/Minimap.js"></script>
+    <script type="text/javascript" src="scripts/GalacticAutomatic.js"></script>
+    <script type="text/javascript" src="scripts/main.js"></script>
+    <style type="text/css">
+      #minimap,
+      #viewport {
+        position: relative;
+      }
+
+      #minimap_dynamic_canvas,
+      #viewport_dynamic_canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .carrot,
+      .rabbit,
+      .wolf {
+        color: #FFF;
+        border-radius: 3px;
+        padding: 3px 8px;
+        text-shadow: 0 1px #000;
+      }
+
+      .carrot {
+        background-color: #FC7C05;
+      }
+
+      .rabbit {
+        background-color: #91B396;
+      }
+
+      .wolf {
+        background-color: #545454;
+      }
+    </style>
+  </head>
+  <body onload="on_load()">
+    <div id="viewport">
+      <canvas id="viewport_static_canvas" width="400" height="400"></canvas>
+      <canvas id="viewport_dynamic_canvas" width="400" height="400"></canvas>
+    </div>
+    <div id="minimap">
+      <canvas id="minimap_static_canvas" width="144" height="144"></canvas>
+      <canvas id="minimap_dynamic_canvas" width="144" height="144"></canvas>
+    </div>
+    <h1>GalacticAutomatic</h1>
+    <p>The larger map is close-up view of the world, click to navigate</p>
+    <p>The smaller map is of the entire world, click to navigate</p>
+    <h3><span class="carrot">Carrots</span>, <span class="rabbit">Rabbits</span> and <span class="wolf">Wolves</span></h3>
+    <ul>
+      <li>rabbits eat carrots</li>
+      <li>wolves eat rabbits</li>
+      <li><strike>rabbits and wolves multiply if they eat enough</strike></li>
+      <li>rabbits and wolves starve if they don't eat enough</li>
+    </ul>
+    <p>
+      <a href="http://github.com/clindsey/GalacticAutomatic">here's the source code</a>
+    </p>
+  </body>
+</html>
